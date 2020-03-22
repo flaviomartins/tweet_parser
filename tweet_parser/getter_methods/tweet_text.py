@@ -55,7 +55,9 @@ def get_full_text(tweet):
         'some tweet text, lorem ipsum dolor sit amet'
     """
     if is_original_format(tweet):
-        if tweet["truncated"]:
+        if "full_text" in tweet:
+            return tweet["full_text"]
+        elif tweet["truncated"]:
             return tweet["extended_tweet"]["full_text"]
         else:
             return tweet["text"]
@@ -92,7 +94,10 @@ def get_text(tweet):
         'some tweet text'
     """
     if is_original_format(tweet):
-        return tweet["text"]
+        if "text" in tweet:
+            return tweet["text"]
+        else:
+            return tweet["full_text"]
     else:
         return tweet["body"]
 

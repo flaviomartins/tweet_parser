@@ -104,9 +104,11 @@ def key_validation_check(tweet_keys_list, superset_keys, minset_keys):
 
 
 def _check_original_format_tweet(tweet, validation_checking=False):
-    for key in ["user", "text"]:
+    for key in ["user"]:
         if key not in tweet:
             raise NotATweetError("This dict has no '{}' key".format(key))
+    if "text" not in tweet and "full_text" not in tweet:
+        raise NotATweetError("This dict has no 'text' or 'full_text' key".format())
     # check for changing keys
     if validation_checking:
         _ = key_validation_check(get_all_keys(tweet),
